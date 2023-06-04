@@ -12,16 +12,19 @@ let edit_email = null;
 // let objstr = localStorage.getItem('users')
 // if(objstr!=null){
 // userArray  = JSON.parse(objstr);
-const objstr ={
-    userArray
-}
-axios.get('https://crudcrud.com/api/07f468e6cfa445e1a2f22bc97d6c38a8/appointmentData',objstr)
+
+axios.get('https://crudcrud.com/api/90d807dd2268483aa238b130adcabb6d/appointmentData')
 .then((response)=>{
-    DisplayInfo();
+
     console.log(response)
+    for(var i=0; i< response.data.length; i++){
+        DisplayInfo(response.data[i]);
+        
+    }
 }).catch((err)=>{
     console.log(err)
 })
+
 
 
 // }
@@ -53,7 +56,7 @@ function SaveInfo(userArray){
     const str ={
         userArray
     }
-    axios.post('https://crudcrud.com/api/07f468e6cfa445e1a2f22bc97d6c38a8/appointmentData',str)
+    axios.post('https://crudcrud.com/api/90d807dd2268483aa238b130adcabb6d/appointmentData',str)
     .then((response)=>{
         console.log(response)
     }).catch((err)=>{
@@ -65,7 +68,7 @@ function SaveInfo(userArray){
 // localStorage.setItem('users', str);
 
  }
-function DisplayInfo(){
+function DisplayInfo(userArray){
 let statement = '';
 userArray.forEach((user,i) =>{
     statement += `<tr>
