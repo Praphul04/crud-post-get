@@ -13,12 +13,12 @@ let edit_email = null;
 // if(objstr!=null){
 // userArray  = JSON.parse(objstr);
 
-axios.get('https://crudcrud.com/api/90d807dd2268483aa238b130adcabb6d/appointmentData')
+axios.get('https://crudcrud.com/api/5b79606c1b924635aecc6483d5007452/appointmentData')
 .then((response)=>{
 
     console.log(response)
     for(var i=0; i< response.data.length; i++){
-        DisplayInfo(response.data[i]);
+        DisplayInfo(userArray);
         
     }
 }).catch((err)=>{
@@ -27,7 +27,7 @@ axios.get('https://crudcrud.com/api/90d807dd2268483aa238b130adcabb6d/appointment
 
 
 
-// }
+//}
 DisplayInfo();
 addUserBtn.onclick=()=>{
     const name =  usernameTextFeild.value;
@@ -56,7 +56,7 @@ function SaveInfo(userArray){
     const str ={
         userArray
     }
-    axios.post('https://crudcrud.com/api/90d807dd2268483aa238b130adcabb6d/appointmentData',str)
+    axios.post('https://crudcrud.com/api/5b79606c1b924635aecc6483d5007452/appointmentData',str)
     .then((response)=>{
         console.log(response)
     }).catch((err)=>{
@@ -68,16 +68,16 @@ function SaveInfo(userArray){
 // localStorage.setItem('users', str);
 
  }
-function DisplayInfo(userArray){
+function DisplayInfo(){
 let statement = '';
-userArray.forEach((user,i) =>{
+userArray.forEach((user,i)=> {
     statement += `<tr>
     <th scope="row">${i+1}</th>
     <td>${user.name}</td>
     <td>${user.email}</td>
     <td><i class="btn text-whilte fa fa-edit btn-info mx-3" onclick='editInfo(${i})'></i><i class="btn btn-danger text white fa fa-trash"onclick='DeleteInfo(${i})'></i></td>
   </tr>`;
-});
+})
 recordsDisplay.innerHTML = statement;
 }
 
@@ -96,7 +96,13 @@ function DeleteInfo(id){
     alert('Do You Want to Delete');
     userArray.splice(id,1);
     // userArray.splice(id1,1);
+    axios.delete('https://crudcrud.com/api/5b79606c1b924635aecc6483d5007452/appointmentData',id)
+.then((response)=>{
+    console.log(DeleteInfo(id));
+  
+}).catch((err)=>{
+    console.log(err)
+})
     SaveInfo(userArray);
     DisplayInfo();
 }
-
