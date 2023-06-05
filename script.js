@@ -85,12 +85,21 @@ recordsDisplay.innerHTML = statement;
 function editInfo(id){
     alert('Do You Want to Edit');
     edit_id = id;
-    edit_email = id;
+    // edit_email = id;
+    axios.put('https://crudcrud.com/api/5b79606c1b924635aecc6483d5007452/appointmentData',id)
+    .then((response)=>{
+        console.log(response);
+      
+    }).catch((err)=>{
+        console.log(err)
+    })
+     
+    
     usernameTextFeild.value = userArray[id].name;
     emailIdText.value = userArray[id].email;   
     addUserBtn.innerText='Save Changes';
-
 }
+
 
 function DeleteInfo(id){
     alert('Do You Want to Delete');
